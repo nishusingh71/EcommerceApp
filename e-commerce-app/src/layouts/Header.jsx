@@ -6,6 +6,7 @@ import { getCategoryStart } from "../redux/actions/category.actions";
 const Header = () => {
   const categories = useSelector((state) => state.category.categories);
   const currentUser = useSelector((state) => state.user.currentUser);
+  let currentCart = useSelector((state) => state.cart.currentCart);
   const dispatch = useDispatch();
   const getCategory = useCallback(() => {
     dispatch(getCategoryStart());
@@ -41,12 +42,12 @@ const Header = () => {
               <ul>
                 <li>
                   <Link to="/cart">
-                    <i className="fa fa-shopping-bag"></i> <span>3</span>
+                    <i className="fa fa-shopping-bag"></i> <span>{currentCart.items.length}</span>
                   </Link>
                 </li>
               </ul>
               <div className="header__cart__price">
-                item: <span>$150.00</span>
+                item: <span>${currentCart.grandTotal.toFixed(2)}</span>
               </div>
             </div>
           </>
@@ -71,6 +72,7 @@ const Header = () => {
                   className="text-center mt-2"
                 >
                   <div
+                  className="ms-3"
                     style={{
                       borderRadius: "50%",
                       overflow: "hidden",
@@ -152,13 +154,13 @@ const Header = () => {
                   )}
                   {currentUser.name && (
                     <>
-                      <div className="header__top__right__auth">
+                      <div className="header__top__right__auth d-flex justify-content-end m-auto">
                         <Link
                           to="/admin/dashboard"
                           style={{ fontSize: "12sp" }}
                           className="text-center mt-2"
                         >
-                          <div
+                          <div className="ms-3"
                             style={{
                               borderRadius: "50%",
                               overflow: "hidden",
@@ -221,12 +223,13 @@ const Header = () => {
                     <ul>
                       <li>
                         <Link to="/cart">
-                          <i className="fa fa-shopping-bag"></i> <span>3</span>
+                          <i className="fa fa-shopping-bag"></i>{" "}
+                          <span>{currentCart.items.length}</span>
                         </Link>
                       </li>
                     </ul>
                     <div className="header__cart__price">
-                      item: <span>$150.00</span>
+                      item: <span>${currentCart.grandTotal.toFixed(2)}</span>
                     </div>
                   </div>
                 </>
@@ -238,7 +241,6 @@ const Header = () => {
           </div>
         </div>
       </header>
-      
     </>
   );
 };

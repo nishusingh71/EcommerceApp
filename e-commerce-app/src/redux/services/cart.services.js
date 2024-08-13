@@ -13,14 +13,16 @@ let collectionName = "carts";
 
 export const getCartFromAPI = async () => {
   let cart = defaultValue;
-
+  let currentCardId = localStorage.getItem("current_cart_id");
   const querySnapshot = await getDocs(collection(db, collectionName));
 
   querySnapshot.forEach((doc) => {
     let crt = doc.data();
-    crt.id = doc.id;
+    if (currentCardId === doc.id) {
+      crt.id = doc.id;
 
-    cart = crt;
+      cart = crt;
+    }
   });
 
   return cart;

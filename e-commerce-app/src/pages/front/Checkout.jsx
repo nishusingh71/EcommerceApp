@@ -1,8 +1,10 @@
 import React from "react";
 import Breadcrumb from "../../components/Breadcrum";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CheckItem from "../../components/checkout/CheckItem";
 
 const Checkout = () => {
+  let currentCart = useSelector((state) => state.cart.currentCart);
   return (
     <>
       <Breadcrumb />
@@ -10,10 +12,10 @@ const Checkout = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <h6>
+              {/* <h6>
                 <span className="icon_tag_alt"></span> Have a coupon?{" "}
                 <Link to="#">Click here</Link> to enter your code
-              </h6>
+              </h6> */}
             </div>
           </div>
           <div className="checkout__form">
@@ -136,21 +138,16 @@ const Checkout = () => {
                       Products <span>Total</span>
                     </div>
                     <ul>
-                      <li>
-                        Vegetable’s Package <span>$75.99</span>
-                      </li>
-                      <li>
-                        Fresh Vegetable <span>$151.99</span>
-                      </li>
-                      <li>
-                        Organic Bananas <span>$53.99</span>
-                      </li>
+                      {currentCart.items.length > 0 &&
+                        currentCart.items.map((item) => (
+                          <CheckItem item={item} />
+                        ))}
                     </ul>
                     <div className="checkout__order__subtotal">
-                      Subtotal <span>$750.99</span>
+                      Subtotal <span>${currentCart.subTotal.toFixed(2)}</span>
                     </div>
                     <div className="checkout__order__total">
-                      Total <span>$750.99</span>
+                      Total <span>${currentCart.grandTotal}</span>
                     </div>
                     <div className="checkout__input__checkbox">
                       <label for="acc-or">

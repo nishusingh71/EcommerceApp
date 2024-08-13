@@ -1,20 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Breadcrumb from "../../components/Breadcrum";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductStart } from "../../redux/actions/product.actions";
+import { useCart } from "../../customHooks/useCart";
+import { addCartStart } from "../../redux/actions/cart.actions";
 
 const ProductDetails = () => {
   let products = useSelector((state) => state.product.products);
-  const dispatch = useDispatch();
-  const { slug } = useParams();
-  useEffect(() => {
-    if (!products.find((product) => product.slug === slug)) {
-      dispatch(getProductStart(slug));
-    }
-  }, [slug, products, dispatch]);
+  let currentCart = useSelector((state) => state.cart.currentCart);
+  let currentUser = useSelector((state) => state.user.currentUser);
 
-  const product = products.find((product) => product.slug === slug);
+  let [addItemToCart] = useCart({ ...currentCart }, currentUser);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  let { slug } = useParams();
+  let [currentProduct, setCurrentProduct] = useState({});
+  let [quantity, setQuantity] = useState(0);
+
+  const getProductBySlug = useCallback(
+    (slug) => {
+      let product = products.find((product) => product.slug === slug);
+      let currentCartProductExists = currentCart.items.find(
+        (product) => product.slug === slug
+      );
+
+      if (product) {
+        setCurrentProduct(product);
+        if (currentCartProductExists) {
+          setQuantity(+currentCartProductExists.purchaseQuantity);
+        }
+      } else {
+        navigate("/");
+      }
+    },
+    [products, currentCart.items, navigate]
+  );
+
+  const addToCart = () => {
+    if (!currentUser.id) {
+      navigate("/login");
+    }
+
+    let cartObject = addItemToCart({ ...currentProduct });
+
+    dispatch(addCartStart(cartObject));
+  };
+
+  useEffect(() => {
+    getProductBySlug(slug);
+  }, [slug, getProductBySlug]);
 
   return (
     <>
@@ -27,47 +63,67 @@ const ProductDetails = () => {
                 <div className="product__details__pic__item">
                   <img
                     className="product__details__pic__item"
-                    src={product.image}
-                    alt={product.name}
+                    src={currentProduct.image}
+                    alt={currentProduct.name}
                   />
                 </div>
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
               <div className="product__details__text">
-                <h3>{product.name}</h3>
-                <div className="product__details__price">{product.price}$</div>
-                <p>{product.shortDescription}</p>
-                <div className="product__details__quantity">
-                  <div className="quantity">
-                    <div className="pro-qty">
-                      <input type="text" value="1" />
-                    </div>
+                <h3>{currentProduct.name}</h3>
+                <div className="product__details__price">
+                  {currentProduct.price}$
+                </div>
+                <p>{currentProduct.shortDescription}</p>
+                <div
+                  className="input-group quantity mb-5"
+                  style={{ width: "100px" }}
+                >
+                  <div className="input-group-btn">
+                    <button
+                      className="btn btn-sm btn-minus rounded-circle bg-light border"
+                      onClick={() => setQuantity(quantity - 1)}
+                    >
+                      <i className="fa fa-minus"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    className="form-control form-control-sm text-center border-0"
+                    value={quantity}
+                    onChange={() => {}}
+                  />
+                  <div className="input-group-btn">
+                    <button
+                      className="btn btn-sm btn-plus rounded-circle bg-light border"
+                      onClick={() => setQuantity(quantity + 1)}
+                    >
+                      <i className="fa fa-plus"></i>
+                    </button>
                   </div>
                 </div>
-                <Link to="/cart" className="primary-btn">
+                <Link to="#" className="primary-btn" onClick={addToCart}>
                   ADD TO CART
                 </Link>
-                <Link to="#" className="heart-icon">
-                  <span className="icon_heart_alt"></span>
-                </Link>
+
                 <ul>
                   <li>
-                    <b>Color</b> <span>{product.color}</span>
+                    <b>Color</b> <span>{currentProduct.color}</span>
                   </li>
                   <li>
-                    <b>Category</b> <span>{product.category}</span>
+                    <b>Category</b> <span>{currentProduct.category}</span>
                   </li>
                   <li>
-                    <b>Weight</b> <span>{product.weight}</span>
+                    <b>Weight</b> <span>{currentProduct.weight}</span>
                   </li>
                   <li>
                     <b>Quantity</b>
-                    <span>{product.quantity}</span>
+                    <span>{currentProduct.quantity}</span>
                   </li>
                   <li>
                     <b>Status</b>
-                    <span>{product.status}</span>
+                    <span>{currentProduct.status}</span>
                   </li>
                 </ul>
               </div>
@@ -91,7 +147,7 @@ const ProductDetails = () => {
                   <div className="tab-pane active" id="tabs-1" role="tabpanel">
                     <div className="product__details__tab__desc">
                       <h6>Products Infomation</h6>
-                      <p>{product.description}</p>
+                      <p>{currentProduct.description}</p>
                     </div>
                   </div>
                 </div>
