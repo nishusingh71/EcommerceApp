@@ -21,6 +21,5 @@ export const getOrderFromAPI = async () => {
 
 export const placeOrderToAPI = async (order) => {
   const docRef = await addDoc(collection(db, collectionName), order);
-  console.log("Document written with ID: ", docRef.id);
-  localStorage.removeItem("current_cart_id");
+  localStorage.removeItem("current_cart_id", docRef.id);
 };

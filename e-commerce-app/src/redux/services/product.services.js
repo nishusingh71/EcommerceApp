@@ -27,7 +27,7 @@ export const getProductFromAPI = async () => {
 
 export const addProductToAPI = async (product) => {
   const docRef = await addDoc(collection(db, collectionName), product);
-  console.log("Document written with ID: ", docRef.id);
+  return docRef.id;
 };
 
 export const updateProductToAPI = async (product, id) => {

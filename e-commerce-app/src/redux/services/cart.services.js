@@ -37,7 +37,6 @@ export const addCartToAPI = async (cart) => {
   } else {
     const docRef = await addDoc(collection(db, collectionName), cart);
     localStorage.setItem("current_cart_id", docRef.id);
-    console.log("Document written with ID: ", docRef.id);
   }
 };
 

@@ -27,7 +27,7 @@ export const getUserFromAPI = async () => {
 
 export const addUserToAPI = async (user) => {
   const docRef = await addDoc(collection(db, collectionName), user);
-  console.log("Document written with ID: ", docRef.id);
+  return docRef.id;
 };
 
 export const updateUserToAPI = async (user, id) => {

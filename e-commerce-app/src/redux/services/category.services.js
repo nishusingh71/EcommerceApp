@@ -27,7 +27,7 @@ export const getCategoryFromAPI = async () => {
 
 export const addCategoryToAPI = async (category) => {
   const docRef = await addDoc(collection(db, collectionName), category);
-  console.log("Document written with ID: ", docRef.id);
+  return docRef.id;
 };
 
 export const updateCategoryToAPI = async (category, id) => {
