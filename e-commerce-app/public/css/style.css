@@ -35,7 +35,7 @@ body {
 	height: 100%;
 	font-family: "Cairo", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+	/* font-smoothing: antialiased; */
 }
 
 h1,
@@ -797,7 +797,7 @@ ol {
 	position: absolute;
 	left: -35px;
 	top: 50%;
-	-webkit-transform: translateY(-35px);
+	/* -webkit-transform: translateY(-35px); */
 	background: #ffffff;
 }
 
@@ -887,17 +887,17 @@ ol {
 	margin-right: 0;
 }
 
-.featured__item__pic__hover li:hover a {
+.featured__item__pic__hover li:hover p {
 	background: #7fad39;
 	border-color: #7fad39;
 }
 
-.featured__item__pic__hover li:hover a i {
+.featured__item__pic__hover li:hover p i {
 	color: #ffffff;
 	transform: rotate(360deg);
 }
 
-.featured__item__pic__hover li a {
+.featured__item__pic__hover li p {
 	font-size: 16px;
 	color: #1c1c1c;
 	height: 40px;
@@ -915,7 +915,7 @@ ol {
 	transition: all, 0.5s;
 }
 
-.featured__item__pic__hover li a i {
+.featured__item__pic__hover li p i {
 	position: relative;
 	transform: rotate(0);
 	-webkit-transition: all, 0.3s;
@@ -2739,9 +2739,9 @@ ol {
 	
 }
 
-.footer__copyright__payment {
+/* .footer__copyright__payment {
 	 
-}
+} */
 
 /*---------------------
   Contact
@@ -3190,7 +3190,7 @@ ol {
 		position: relative;
 		left: 0;
 		top: 0;
-		-webkit-transform: translateY(0);
+		/* -webkit-transform: translateY(0); */
 	}
 	.categories__slider.owl-carousel .owl-nav button.owl-next {
 		right: -10px;

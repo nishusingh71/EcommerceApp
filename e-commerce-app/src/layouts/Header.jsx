@@ -38,18 +38,21 @@ const Header = () => {
 
         {currentUser.name && (
           <>
-            <div className="humberger__menu__cart">
-              <ul>
-                <li>
-                  <Link to="/cart">
-                    <i className="fa fa-shopping-bag"></i> <span>{currentCart.items.length}</span>
-                  </Link>
-                </li>
-              </ul>
-              <div className="header__cart__price">
-                item: <span>${currentCart.grandTotal.toFixed(2)}</span>
+            {currentCart.items.length > 0 && (
+              <div className="humberger__menu__cart">
+                <ul>
+                  <li>
+                    <Link to="/cart">
+                      <i className="fa fa-shopping-bag"></i>{" "}
+                      <span>{currentCart.items.length}</span>
+                    </Link>
+                  </li>
+                </ul>
+                <div className="header__cart__price">
+                  item: <span>${currentCart.grandTotal.toFixed(2)}</span>
+                </div>
               </div>
-            </div>
+            )}
           </>
         )}
 
@@ -72,7 +75,7 @@ const Header = () => {
                   className="text-center mt-2"
                 >
                   <div
-                  className="ms-3"
+                    className="ms-3"
                     style={{
                       borderRadius: "50%",
                       overflow: "hidden",
@@ -160,7 +163,8 @@ const Header = () => {
                           style={{ fontSize: "12sp" }}
                           className="text-center mt-2"
                         >
-                          <div className="ms-3"
+                          <div
+                            className="ms-3"
                             style={{
                               borderRadius: "50%",
                               overflow: "hidden",
@@ -219,19 +223,21 @@ const Header = () => {
             <div className="col-lg-3">
               {currentUser.name && (
                 <>
-                  <div className="header__cart">
-                    <ul>
-                      <li>
-                        <Link to="/cart">
-                          <i className="fa fa-shopping-bag"></i>{" "}
-                          <span>{currentCart.items.length}</span>
-                        </Link>
-                      </li>
-                    </ul>
-                    <div className="header__cart__price">
-                      item: <span>${currentCart.grandTotal.toFixed(2)}</span>
+                  {currentCart.items.length > 0 && (
+                    <div className="header__cart">
+                      <ul>
+                        <li>
+                          <Link to="/cart">
+                            <i className="fa fa-shopping-bag"></i>{" "}
+                            <span>{currentCart.items.length}</span>
+                          </Link>
+                        </li>
+                      </ul>
+                      <div className="header__cart__price">
+                        item: <span>${currentCart.grandTotal.toFixed(2)}</span>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </>
               )}
             </div>

@@ -37,7 +37,7 @@ const Home = () => {
               <div className="featured__controls">
                 <ul>
                   <li
-                    key={1}
+                    key={product.id}
                     className={`category-item ${
                       selectedCategory === "All" ? "active" : ""
                     }`}
@@ -63,8 +63,8 @@ const Home = () => {
           </div>
           <div className="row featured__filter">
             {filteredProducts.length > 0 &&
-              filteredProducts.map((product, index) => (
-                <ProductItem product={product} index={index} />
+              filteredProducts.map((product) => (
+                <ProductItem product={product} key={product.id} />
               ))}
           </div>
         </div>

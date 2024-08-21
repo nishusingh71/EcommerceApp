@@ -47,7 +47,7 @@ const Router = () => {
         {/* register page */}
         <Route path="/register" element={<Register />} />
         {/* Thank You Page */}
-        <Route path="/thankyou" element={<ThankYou />} />
+        <Route path="/thank-you" element={<ThankYou />} />
 
         {/* Admin Route */}
         <Route path="/admin" element={<Auth />}>
@@ -62,7 +62,7 @@ const Router = () => {
             <Route path="" element={<Order />} />
 
             {/* order view page */}
-            <Route path="view" element={<OrderView />} />
+            <Route path="view/:id" element={<OrderView />} />
           </Route>
 
           {/* product pages*/}
