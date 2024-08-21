@@ -1,9 +1,9 @@
 import React from "react";
-
+import styles from './Footer.module.css';
 const Footer = () => {
   return (
     <>
-      <footer className="footer spad mt-4">
+      <footer className={`footer spad mt-5 ${styles.footer}`} >
         <div className="footer__copyright d-flex justify-content-center">
           <div className="footer__copyright__text">
             <p>

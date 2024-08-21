@@ -1,0 +1,10 @@
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    position: static;
+    bottom: 0;
+    width: 100%;
+}
