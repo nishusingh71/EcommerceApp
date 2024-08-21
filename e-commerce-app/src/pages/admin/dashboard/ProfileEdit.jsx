@@ -48,7 +48,10 @@ const ProfileEdit = () => {
       setFormData((prevValues) => [...prevValues]);
     }
   };
-
+  const resetData = () => {
+    getUserById();
+    setFormStatus(true);
+  };
   const getUserById = useCallback(() => {
     let user = users.find((user) => user.id === currentUser.id);
 
@@ -75,10 +78,7 @@ const ProfileEdit = () => {
     <div className="card">
       <div className="card-header d-flex justify-content-between ">
         <h5>Profile Edit</h5>
-        <Link
-          to="/admin/dashboard"
-          className="primary-btn  text-white"
-        >
+        <Link to="/admin/dashboard" className="primary-btn  text-white">
           Back
         </Link>
       </div>
@@ -131,7 +131,7 @@ const ProfileEdit = () => {
                 type="submit"
                 className="primary-btn  text-white"
                 disabled={uploadFileStatus}
-                style={{border:'none'}}
+                style={{ border: "none" }}
               >
                 Submit
               </button>
@@ -141,6 +141,7 @@ const ProfileEdit = () => {
                 type="reset"
                 className="btn btn-warning text-white"
                 disabled={uploadFileStatus}
+                onClick={resetData}
               >
                 Reset
               </button>

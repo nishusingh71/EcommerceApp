@@ -41,7 +41,12 @@ const EditCategory = () => {
       setFormData((prevValues) => [...prevValues]);
     }
   };
-
+  
+  const resetData = () => {
+    getCategoryById(id);
+    setFormStatus(true);
+  };
+  
   const getCategoryById = useCallback(
     (id) => {
       let category = categories.find((category) => category.id === id);
@@ -133,6 +138,7 @@ const EditCategory = () => {
                 type="reset"
                 className="btn btn-warning text-white"
                 disabled={uploadFileStatus}
+                onClick={resetData}
               >
                 Reset
               </button>

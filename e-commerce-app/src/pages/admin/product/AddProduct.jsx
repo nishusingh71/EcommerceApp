@@ -35,6 +35,10 @@ const AddProduct = () => {
       setFormData((prevValue) => [...prevValue]);
     }
   };
+  const resetData = () => {
+    setDefaultValue();
+    setFormStatus(true);
+  };
   const setDefaultValue = useCallback(() => {
     for (const formControl of initialState) {
       formControl.value = "";
@@ -151,6 +155,7 @@ const AddProduct = () => {
                 type="reset"
                 className="btn btn-warning text-white"
                 disabled={uploadFilesStatus}
+                onClick={resetData}
               >
                 Reset
               </button>

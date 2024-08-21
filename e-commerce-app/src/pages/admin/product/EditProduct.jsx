@@ -45,6 +45,10 @@ const EditProduct = () => {
       setFormData((prevValues) => [...prevValues]);
     }
   };
+  const resetData = () => {
+    getProductById(id);
+    setFormStatus(true);
+  };
 
   const getProductById = useCallback(
     (id) => {
@@ -174,6 +178,7 @@ const EditProduct = () => {
                 type="reset"
                 className="btn btn-warning text-white"
                 disabled={uploadFileStatus}
+                onClick={resetData}
               >
                 Reset
               </button>

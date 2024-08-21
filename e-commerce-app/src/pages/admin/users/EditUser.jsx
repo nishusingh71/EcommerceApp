@@ -43,7 +43,10 @@ const EditUser = () => {
       setFormData((prevValues) => [...prevValues]);
     }
   };
-
+  const resetData = () => {
+    getUserById(id);
+    setFormStatus(true);
+  };
   const getUserById = useCallback(
     (id) => {
       let user = users.find((user) => user.id === id);
@@ -67,7 +70,7 @@ const EditUser = () => {
 
   useEffect(() => {
     getUserById(id);
-  }, [id,getUserById]);
+  }, [id, getUserById]);
 
   return (
     <div className="card">
@@ -165,6 +168,7 @@ const EditUser = () => {
                 type="reset"
                 className="btn btn-warning text-white"
                 disabled={uploadFilesStatus}
+                onClick={resetData}
               >
                 Reset
               </button>
