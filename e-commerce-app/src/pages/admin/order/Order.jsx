@@ -4,8 +4,12 @@ import { getOrderStart } from "../../../redux/actions/order.actions";
 import { Link } from "react-router-dom";
 
 const Order = () => {
-  let orders = useSelector((state) => state.order.orders);
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const orders = useSelector((state) => state.order.orders);
+  const filterOrders = orders.filter(
+    (order) => order.customer.id === currentUser.id
+  );
 
   const getOrder = useCallback(() => {
     dispatch(getOrderStart());
@@ -33,8 +37,8 @@ const Order = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.length > 0 &&
-                orders.map((order, index) => (
+              {filterOrders.length > 0 ? (
+                filterOrders.map((order, index) => (
                   <tr key={index}>
                     <th>{index + 1}</th>
                     <th>{order.billingAddress.name}</th>
@@ -50,7 +54,14 @@ const Order = () => {
                       </Link>
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="6" className="text-center">
+                    No orders found
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

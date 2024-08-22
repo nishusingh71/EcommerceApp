@@ -2,7 +2,6 @@ export const modifyFormData = (formData) => {
   let modifyObject = {};
   let isFormValid = false;
 
-  console.log(formData);
 
   for (const formControl of formData) {
     modifyObject[formControl.name] = formControl.value;

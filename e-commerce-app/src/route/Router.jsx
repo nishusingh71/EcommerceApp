@@ -20,7 +20,7 @@ import User from "../pages/admin/users/User";
 import AddUser from "../pages/admin/users/AddUser";
 import EditUser from "../pages/admin/users/EditUser";
 import PageNotFound from "../pages/front/PageNotFound";
-import Dashboard from "../pages/admin/dashboard/DashBoard";
+import Dashboard from "../pages/admin/dashboard/Dashboard";
 import ThankYou from "../pages/front/ThankYou";
 
 const Router = () => {
