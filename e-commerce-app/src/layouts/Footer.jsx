@@ -1,9 +1,9 @@
 import React from "react";
-import styles from './Footer.module.css';
+import styles from "./Footer.module.css";
 const Footer = () => {
   return (
     <>
-      <footer className={`footer spad mt-5 ${styles.footer}`} >
+      <footer className={`footer spad container-fluid mt-5 py-4 ${styles.footer}`}>
         <div className="footer__copyright d-flex justify-content-center">
           <div className="footer__copyright__text">
             <p>
@@ -20,4 +20,3 @@ const Footer = () => {
 };
 
 export default Footer;
- 

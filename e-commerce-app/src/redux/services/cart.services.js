@@ -48,3 +48,20 @@ export const updateCartToAPI = async (cart, id) => {
 export const deleteCartToAPI = async (id) => {
   await deleteDoc(doc(db, collectionName, id));
 };
+
+// Function to fetch the cart from localStorage for a specific user
+export const fetchCartFromLocalStorage = (userId) => {
+  try {
+    // Construct the key for the current user's cart in localStorage
+    const cartKey = `cart_${userId}`;
+
+    // Retrieve the cart data from localStorage
+    const cart = JSON.parse(localStorage.getItem(cartKey));
+
+    // If the cart exists, return it; otherwise, return the default cart value
+    return cart || defaultValue;
+  } catch (error) {
+    console.error("Error fetching cart from localStorage:", error);
+    return defaultValue; // Return the default cart value if an error occurs
+  }
+};

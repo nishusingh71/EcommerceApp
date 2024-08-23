@@ -6,7 +6,6 @@ import { modifyFormData } from "../../helpers/formHelper";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebaseconfig";
 import { addUserStart } from "../../redux/actions/user.actions";
-import Breadcrumb from "../../components/Breadcrum";
 import Styles from "./LoginForm.module.css";
 import InputText from "../../components/ui/InputText";
 import InputEmail from "../../components/ui/InputEmail";
@@ -69,7 +68,6 @@ const Register = () => {
   }, [setDefaultValue]);
   return (
     <>
-      <Breadcrumb />
       <div className="container mt-4">
         <div className={`row ${Styles.mainContent} bg-success`}>
           <div className={`col-md-12 col-xs-12 col-sm-12 ${Styles.loginForm}`}>

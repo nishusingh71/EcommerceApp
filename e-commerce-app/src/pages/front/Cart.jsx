@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Breadcrumb from "../../components/Breadcrum";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CartItem from "../../components/cart/CartItem";
+import { getCartSuccess } from "../../redux/actions/cart.actions";
+import { fetchCartFromLocalStorage } from "../../redux/services/cart.services";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
   let currentCart = useSelector((state) => state.cart.currentCart);
+  useEffect(() => {
+    if (currentUser && currentUser.id) {
+      const userCart = fetchCartFromLocalStorage(currentUser.id);
+
+      dispatch(getCartSuccess(userCart));
+    }
+  }, [currentUser, dispatch]);
   return (
     <>
       <Breadcrumb />
@@ -25,10 +36,17 @@ const Cart = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {currentCart.items.length > 0 &&
+                    {currentCart.items && currentCart.items.length > 0 ? (
                       currentCart.items.map((item, index) => (
                         <CartItem key={index} item={item} />
-                      ))}
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="5" className="text-center">
+                          No items in your cart.
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

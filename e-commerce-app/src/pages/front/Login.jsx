@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Breadcrumb from "../../components/Breadcrum";
 import { initialState } from "./loginValidation";
 import Styles from "./LoginForm.module.css";
 import InputEmail from "../../components/ui/InputEmail";
@@ -79,7 +78,6 @@ const Login = () => {
 
   return (
     <>
-      <Breadcrumb />
 
       <div className="container mt-4">
         <div className={`row ${Styles.mainContent} bg-success`}>

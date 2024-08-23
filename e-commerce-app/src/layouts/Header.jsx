@@ -2,6 +2,8 @@ import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getCategoryStart } from "../redux/actions/category.actions";
+import { fetchCartFromLocalStorage } from "../redux/services/cart.services";
+import { getCartSuccess } from "../redux/actions/cart.actions";
 
 const Header = () => {
   const categories = useSelector((state) => state.category.categories);
@@ -16,7 +18,13 @@ const Header = () => {
     if (categories.length !== 0) {
       getCategory();
     }
-  }, [categories.length, getCategory]);
+    if (currentUser && currentUser.id) {
+      const userCart = fetchCartFromLocalStorage(currentUser.id);
+
+      dispatch(getCartSuccess(userCart));
+    }
+  }, [categories.length, currentUser, dispatch, getCategory]);
+  // const isCartEmpty = !currentCart.items || currentCart.items.length === 0;
 
   return (
     <>
@@ -38,7 +46,7 @@ const Header = () => {
 
         {currentUser.name && (
           <>
-            {currentCart.items.length > 0 && (
+            {currentCart.items && currentCart.items.length > 0 && (
               <div className="humberger__menu__cart">
                 <ul>
                   <li>
@@ -195,9 +203,15 @@ const Header = () => {
           <div className="row">
             <div className="col-lg-3">
               <div className="header__logo">
-                <Link to="/">
-                  <img src="img/logo.png" alt="" />
-                </Link>
+                {currentUser.name ? (
+                  <Link to="/">
+                    <img src="img/logo.png" alt="" />
+                  </Link>
+                ) : (
+                  <Link style={{ cursor: "default" }}>
+                    <img src="img/logo.png" alt="" />
+                  </Link>
+                )}
               </div>
             </div>
             <div className="col-lg-6">
@@ -223,7 +237,7 @@ const Header = () => {
             <div className="col-lg-3">
               {currentUser.name && (
                 <>
-                  {currentCart.items.length > 0 && (
+                  {currentCart.items && currentCart.items.length > 0 && (
                     <div className="header__cart">
                       <ul>
                         <li>

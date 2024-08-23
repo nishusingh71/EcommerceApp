@@ -8,6 +8,8 @@ import {
   GET_CART_ERROR,
   GET_CART_START,
   GET_CART_SUCCESS,
+  SET_CURRENT_CART_START,
+  SET_CURRENT_CART_SUCCESS,
   UPDATE_CART_ERROR,
   UPDATE_CART_START,
   UPDATE_CART_SUCCESS,
@@ -80,4 +82,15 @@ export const deleteCartSuccess = (id) => ({
 export const deleteCartError = (error) => ({
   type: DELETE_CART_ERROR,
   payload: error,
+});
+
+// set cart
+export const setCurrentCartStart = (userId) => ({
+  type: SET_CURRENT_CART_START,
+  payload: userId,
+});
+
+export const setCurrentCartSuccess = (cart) => ({
+  type: SET_CURRENT_CART_SUCCESS,
+  payload: cart,
 });
