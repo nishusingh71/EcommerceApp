@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getCategoryStart } from "../redux/actions/category.actions";
 import { fetchCartFromLocalStorage } from "../redux/services/cart.services";
 import { getCartSuccess } from "../redux/actions/cart.actions";
-
+import logo from "../logo.png";
 const Header = () => {
   const categories = useSelector((state) => state.category.categories);
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -28,18 +28,13 @@ const Header = () => {
 
   return (
     <>
-      {/* <!-- Page Preloder --> */}
-      <div id="preloder">
-        <div className="loader"></div>
-      </div>
-
       {/* <!-- Humberger Begin --> */}
       <div className="humberger__menu__overlay"></div>
       <div className="humberger__menu__wrapper">
         <>
           <div className="humberger__menu__logo">
             <Link to="/">
-              <img src="img/logo.png" alt="" />
+              <img src={logo} alt="" />
             </Link>
           </div>
         </>
@@ -205,11 +200,11 @@ const Header = () => {
               <div className="header__logo">
                 {currentUser.name ? (
                   <Link to="/">
-                    <img src="img/logo.png" alt="" />
+                    <img src={logo} alt="" />
                   </Link>
                 ) : (
                   <Link style={{ cursor: "default" }}>
-                    <img src="img/logo.png" alt="" />
+                    <img src={logo} alt="" />
                   </Link>
                 )}
               </div>

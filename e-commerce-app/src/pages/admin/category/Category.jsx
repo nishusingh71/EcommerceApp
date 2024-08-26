@@ -53,7 +53,9 @@ const Category = () => {
                       />
                     </td>
                     <td>{category.name}</td>
-                    <td>{category.status === "active" ? "Active" : "Inactive"}</td>
+                    <td>
+                      {category.status === "active" ? "Active" : "Inactive"}
+                    </td>
                     <td>
                       <Link
                         to={`/admin/category/edit/${category.id}`}

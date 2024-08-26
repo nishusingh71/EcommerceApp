@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/product/ProductItem";
+import { getProductStart } from "../../redux/actions/product.actions";
+import { getCategoryStart } from "../../redux/actions/category.actions";
 
 const Home = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   let product = useSelector((state) => state.product.products);
   let categories = useSelector((state) => state.category.categories);
   let currentUser = useSelector((state) => state.user.currentUser);
@@ -21,10 +25,15 @@ const Home = () => {
       : product.filter((product) => product.category === selectedCategory);
 
   useEffect(() => {
-    if (!currentUser.name) {
+    // Check if the user is authenticated
+    if (!currentUser || !currentUser.name) {
       navigate("/login");
+    } else {
+      // Fetch products and categories if a user is logged in
+      dispatch(getProductStart());
+      dispatch(getCategoryStart());
     }
-  });
+  }, [currentUser, dispatch, navigate]);
   return (
     <>
       <section>
@@ -37,7 +46,6 @@ const Home = () => {
               <div className="featured__controls">
                 <ul>
                   <li
-                    key={product.id}
                     className={`category-item ${
                       selectedCategory === "All" ? "active" : ""
                     }`}

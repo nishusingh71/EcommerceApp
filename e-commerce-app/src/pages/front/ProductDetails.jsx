@@ -42,8 +42,11 @@ const ProductDetails = () => {
     if (!currentUser.id) {
       navigate("/login");
     }
-
-    let cartObject = addItemToCart({ ...currentProduct });
+    if (quantity > currentProduct.quantity) {
+      alert(`Only ${currentProduct.quantity} units available in stock.`);
+      return;
+    }
+    let cartObject = addItemToCart({ ...currentProduct }, quantity);
 
     dispatch(addCartStart(cartObject));
   };
@@ -51,6 +54,17 @@ const ProductDetails = () => {
   useEffect(() => {
     getProductBySlug(slug);
   }, [slug, getProductBySlug]);
+  const handleIncrement = () => {
+    if (quantity < currentProduct.quantity) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   return (
     <>
@@ -65,6 +79,8 @@ const ProductDetails = () => {
                     className="product__details__pic__item"
                     src={currentProduct.image}
                     alt={currentProduct.name}
+                    width={"100%"}
+                    height={"100%"}
                   />
                 </div>
               </div>
@@ -83,7 +99,7 @@ const ProductDetails = () => {
                   <div className="input-group-btn">
                     <button
                       className="btn btn-sm btn-minus rounded-circle bg-light border"
-                      onClick={() => setQuantity(quantity - 1)}
+                      onClick={handleDecrement}
                     >
                       <i className="fa fa-minus"></i>
                     </button>
@@ -97,7 +113,7 @@ const ProductDetails = () => {
                   <div className="input-group-btn">
                     <button
                       className="btn btn-sm btn-plus rounded-circle bg-light border"
-                      onClick={() => setQuantity(quantity + 1)}
+                      onClick={handleIncrement}
                     >
                       <i className="fa fa-plus"></i>
                     </button>

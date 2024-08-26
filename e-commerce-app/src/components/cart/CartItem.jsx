@@ -13,24 +13,24 @@ const CartItem = ({ item, index }) => {
     { ...currentCart },
     currentUser
   );
-  
+
   const removeItem = () => {
     let cartObject = removeItemFromCart({ ...item });
     dispatch(addCartStart(cartObject));
   };
-  
+
   const incrementQuantity = () => {
-    if (quantity < 10) {
+    if (quantity < item.quantity) {
       setQuantity(quantity + 1);
       let cartObject = updateItemToCart({ ...item }, quantity + 1);
       dispatch(addCartStart(cartObject));
     } else {
-      toast.error("Reached Your Limit");
+      toast.error("Cannot add more than available stock.");
     }
   };
-  
+
   const decrementQuantity = () => {
-    if (quantity - 1 > 0) {
+    if (quantity > 1) {
       setQuantity(quantity - 1);
       let cartObject = updateItemToCart({ ...item }, quantity - 1);
       dispatch(addCartStart(cartObject));
@@ -38,7 +38,7 @@ const CartItem = ({ item, index }) => {
       removeItem();
     }
   };
-  
+
   return (
     <>
       <tr>

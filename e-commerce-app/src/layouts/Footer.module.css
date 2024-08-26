@@ -1,10 +1,36 @@
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100vh; 
 }
 
-.footer {
-    position: static;
-    bottom: 0;
-    width: 100%;
+
+main {
+    flex: 1;
+}
+
+
+.container-fluid.copyright {
+    margin-top: auto; 
+    background-color: #333; 
+    color: white; 
+    width: 100%; 
+    padding: 20px 0; 
+    text-align: center; 
+}
+
+
+@media (max-width: 768px) {
+    .container-fluid.copyright {
+        font-size: 14px; 
+        padding: 15px 0; 
+    }
 }

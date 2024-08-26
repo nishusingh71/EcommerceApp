@@ -25,7 +25,7 @@ const Sidebar = () => {
   };
 
   return (
-    <ul className="list-group">
+    <ul className="list-group mb-5" >
       <li className="list-group-item primary-btn">Sidebar</li>
       <li className="list-group-item ">
         <Link to="/admin/dashboard" className={styles.link}>
